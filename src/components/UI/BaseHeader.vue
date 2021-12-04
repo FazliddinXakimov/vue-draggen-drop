@@ -23,3 +23,9 @@ export default {
   props: ["name", "length"],
 };
 </script>
+
+<style scoped>
+div {
+  position: fixed;
+}
+</style>

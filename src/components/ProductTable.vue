@@ -5,7 +5,9 @@
   <div>
     <div class="listGroup">
       <div class="column bg-dark">
-        <base-header :length="products.length" name="Buyurtma" />
+        <div class="header">
+          <base-header :length="products.length" name="Buyurtma" />
+        </div>
         <draggable
           v-model="products"
           group="tasks"
@@ -20,7 +22,9 @@
       </div>
 
       <div class="column bg-dark">
-        <base-header :length="preparing.length" name="Tayyorlanmoqda" />
+        <div class="header">
+          <base-header :length="preparing.length" name="Tayyorlanmoqda" />
+        </div>
         <draggable
           v-model="preparing"
           group="tasks"
@@ -35,7 +39,9 @@
       </div>
 
       <div class="column">
-        <base-header :length="prepared.length" name="Tayyor" />
+        <div class="header">
+          <base-header :length="prepared.length" name="Tayyor" />
+        </div>
         <draggable
           v-model="prepared"
           group="tasks"
@@ -50,7 +56,9 @@
       </div>
 
       <div class="column bg-dark">
-        <base-header :length="delivering.length" name="Yetkazilmoqda" />
+        <div class="header">
+          <base-header :length="delivering.length" name="Yetkazilmoqda" />
+        </div>
         <draggable
           v-model="delivering"
           group="tasks"
@@ -65,7 +73,9 @@
       </div>
 
       <div class="column bg-dark">
-        <base-header :length="delivered.length" name="Yetkazildi" />
+        <div class="header">
+          <base-header :length="delivered.length" name="Yetkazildi" />
+        </div>
         <draggable
           v-model="delivered"
           group="tasks"
@@ -118,11 +128,16 @@ export default {
     handleAdd(product) {
       this.products.unshift(product);
     },
+    setTrashNull() {
+      this.trash = [];
+    },
   },
 
   watch: {
-    trash() {
-      this.trash = [];
+    trash(value) {
+      if (value.length > 0) {
+        this.trash = [];
+      }
     },
   },
 };
@@ -143,14 +158,19 @@ export default {
   border-right: 2px solid white;
   text-align: center;
   background-color: #212529;
+  overflow-y: scroll;
 }
-.column:target {
-  background-color: #555;
+
+.header {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 }
 
 .dragArea {
-  height: 100%;
+  min-height: 320px;
 }
+
 .trashZone {
   display: none;
 }
